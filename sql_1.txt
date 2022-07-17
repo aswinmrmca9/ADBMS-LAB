@@ -1,0 +1,76 @@
+create table loans(accno int,custname varchar(30),loan_amount int,instalments int,int_rate number(5,2),start_date date,interest int);
+
+
+insert into loans values(1,'r k gupta',300000,36,12.00,'19-july-2009',1200);
+insert into loans values(2,'s p sharma',500000,48,10.00,'22-mar-2008',1800);
+insert into loans values(3,'k p jain',300000,36,NULL,'08-mar-2007',1600);
+insert into loans values(4,'m p yadhav',800000,60,10.00,'06-dec-2008',2250);
+insert into loans values(5,'s p sinha',200000,36,12.50,'03-jan-2010',4500);
+insert into loans values(6,'p sharma',700000,60,12.50,'05-jun-2008',3500);
+insert into loans values(7,'k s dhall',500000,48,NULL,'05-mar-2008',3800);
+
+
+select accno,custname,loan_amount from loans;
+
+select * from loans where instalments<40;
+
+select accno,loan_amount from loans where start_date<'01-apr-2009';
+
+select int_rate from loans where start_date>'01-apr-2009';
+
+select * from loans where int_rate is NULL;
+
+select * from loans where int_rate is not NULL;
+
+select distinct(loan_amount) from loans;
+
+select distinct instalments from loans;
+
+select * from loans where start_date>'31-dec-2008' and instalments>=36;
+
+select custname,loan_amount from loans where instalments!=36;
+
+select custname,loan_amount from loans where loan_amount<500000 or int_rate>12;
+
+select * from loans where loan_amount in(400000,500000);
+
+select * from loans where int_rate between 11 and 12;
+
+select custname,loan_amount from loans where instalments in(24,36,48);
+
+select accno,custname,loan_amount from loans where custname like('%sharma');
+
+select accno,custname,loan_amount from loans where custname like ('%a');
+
+select accno,custname,loan_amount from loans where custname not like ('%p%');
+
+select accno,custname,loan_amount from loans where custname like('%a_');
+
+select * from loans order by loan_amount;
+
+select * from loans order by start_date desc;
+
+update loans set int_rate=11.50 where int_rate is NULL;
+
+update loans set int_rate=int_rate+0.5  where loan_amount>400000;
+
+update loans set interest=(loan_amount*int_rate*instalments)/(12*100);
+
+delete from loans where custname='k p jain';
+
+alter table loans add category char;
+
+select sum(interest) from loans where int_rate>10;
+
+select max(interest) from loans;
+
+select count(custname) from loans where custname like ('%sharma');
+
+select count(custname) from loans where  interest is NULL;
+
+select interest from loans group by interest; 
+
+select instalments,interest from loans group by instalments,interest having instalments>=50;
+
+select interest,count(*) from loans group by interest,instalments having instalments>50;
+
